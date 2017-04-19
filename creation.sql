@@ -3,7 +3,11 @@
 --drop table relationship; drop table stories; drop table results; drop table jokes; drop table people;
 
 CREATE TABLE people(
+<<<<<<< Updated upstream
 	id			int				PRIMARY KEY,
+=======
+	id		int	PRIMARY KEY,
+>>>>>>> Stashed changes
 	name 		varchar(100) 	NOT NULL
 );
 
