@@ -3,8 +3,8 @@
 --drop table relationship; drop table stories; drop table results; drop table jokes; drop table people;
 
 CREATE TABLE people(
-	id		int		PRIMARY KEY,
-	name 		varchar(100) 	NOT NULL
+	id		int			PRIMARY KEY,
+	name 		varchar(100) 		NOT NULL
 );
 
 CREATE TABLE jokes(
