@@ -3,31 +3,30 @@
 --drop table relationship; drop table stories; drop table results; drop table jokes; drop table people;
 
 CREATE TABLE people(
-	id		int			PRIMARY KEY,
-	name 		varchar(100) 		NOT NULL
+	id		INTEGER			PRIMARY KEY,
+	name 		VARCHAR(100) 		NOT NULL
 );
 
 CREATE TABLE jokes(
-	id 		int 			PRIMARY KEY,
-	title 		varchar(100)		DEFAULT '',
-	date 		date,
-	from_who 	int 			REFERENCES people(id),
-	to_who 		int 			REFERENCES people(id)
+	id 		INTEGER			PRIMARY KEY,
+	title 		VARCHAR(100)		DEFAULT '',
+	from_who 	INTEGER			REFERENCES people(id),
+	text 		TEXT        		NOT NULL DEFAULT ''
 );
 	
 CREATE TABLE relationship(
-	person1 	int			REFERENCES people(id),
-	person2		int 			REFERENCES people(id),
-	rel 		varchar(100)		NOT NULL
+	person1 	INTEGER			REFERENCES people(id),
+	person2		INTEGER			REFERENCES people(id),
+	rel 		VARCHAR(100)		NOT NULL
 );
 	
-CREATE TABLE stories(
-	joke_id 	int 			REFERENCES jokes(id),
-	text 		text 			NOT NULL DEFAULT ''
+CREATE TABLE people_get_joke(
+	people_id 	INTEGER			REFERENCES people(id),
+	joke_id 	INTEGER 		REFERENCES jokes(id)
 );
 
 CREATE TABLE results(
-	joke_id 	int 			REFERENCES jokes(id),
-	rating 		int 			NOT NULL,
-	comment 	text 			DEFAULT ''
+	joke_id 	INTEGER			PRIMARY KEY REFERENCES jokes(id),
+	rating 		INTEGER			NOT NULL,
+	comment 	TEXT 			DEFAULT ''
 );
