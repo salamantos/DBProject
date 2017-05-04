@@ -8,11 +8,31 @@ if __name__ != "__main__":
 
 
 def show_res(show_get_template, show_get_res):
+    # Считаем максимальную длину сроки в каждой колонке
+    rows_len = []
+    columns_count = len(show_get_template)
     for elem in show_get_template:
-        print(elem, end='   ')
-    print()
+        rows_len.append(len(str(elem)))
     for elem in show_get_res:
-        print(elem)
+        i = 0
+        for member in elem:
+            rows_len[i] = max(rows_len[i], len(str(member)))
+            i += 1
+
+    table_width = 1 + columns_count * 3
+    for elem in rows_len:
+        table_width += elem
+    print('|', end='')
+    for i in range(columns_count):
+        print(' {}{}|'.format(show_get_template[i], ' ' * (rows_len[i] - len(str(show_get_template[i])) + 1)), end='')
+
+    print('\n+{}+'.format('-' * (table_width - 2)))
+    for elem in show_get_res:
+        print('|', end='')
+        for i in range(columns_count):
+            print(' {}{}|'.format(elem[i], ' ' * (rows_len[i] - len(str(elem[i])) + 1)), end='')
+        print()
+        print('+{}+'.format('-' * (table_width - 2)))
 
 
 invite_text = '''Введите команду (напр. "1")
@@ -23,6 +43,7 @@ invite_text = '''Введите команду (напр. "1")
   4 - информация о разыгранных людях\n'''
 
 con = sqlite3.connect('AprilFoolsJokes.db')
+con.row_factory = sqlite3.Row
 cur = con.cursor()
 action = input(invite_text)
 while True:
