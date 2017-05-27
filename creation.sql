@@ -17,16 +17,19 @@ CREATE TABLE jokes(
 CREATE TABLE relationship(
 	person1 	INTEGER			REFERENCES people(id),
 	person2		INTEGER			REFERENCES people(id),
-	rel 		VARCHAR(100)		NOT NULL
+	rel 		VARCHAR(100)		NOT NULL,
+  PRIMARY KEY (person1, person2)
 );
 	
 CREATE TABLE people_get_joke(
 	people_id 	INTEGER			REFERENCES people(id),
-	joke_id 	INTEGER 		REFERENCES jokes(id)
+	joke_id 	INTEGER 		REFERENCES jokes(id),
+  PRIMARY KEY (people_id, joke_id)
 );
 
 CREATE TABLE results(
-	joke_id 	INTEGER			PRIMARY KEY REFERENCES jokes(id),
+	joke_id 	INTEGER			REFERENCES jokes(id),
 	rating 		INTEGER			NOT NULL,
-	comment 	TEXT 			DEFAULT ''
+	comment 	TEXT 			DEFAULT '',
+  PRIMARY KEY (joke_id, rating, comment)
 );
